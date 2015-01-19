@@ -20,6 +20,16 @@ var FactoryGuyTestMixin = Em.Mixin.create({
     return serializer instanceof DS.ActiveModelSerializer;
   },
   /**
+   @param {String} model type like user for model User
+   @return {boolean} true if model's serializer is DjangoTastypieSerializer based
+   */
+  usingDjangoTastypieSerializer: function (type) {
+    var store = this.getStore();
+    var modelType = store.modelFor(type);
+    var serializer = store.serializerFor(modelType.typeKey);
+    return serializer instanceof DS.DjangoTastypieSerializer;
+  },
+  /**
    Proxy to store's find method
 
    @param {String or subclass of DS.Model} type
